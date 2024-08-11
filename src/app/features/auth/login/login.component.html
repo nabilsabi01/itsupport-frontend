@@ -1,1 +1,30 @@
-<p>login works!</p>
+<div class="login-container">
+    <div class="login-form">
+      <div class="text-center mb-4">
+        <img src="assets/it-support-logo.png" alt="IT Support" class="logo">
+        <h2 class="mt-2">IT Support</h2>
+      </div>
+      <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+        <div class="mb-3">
+          <label for="email" class="form-label">Email</label>
+          <input type="email" class="form-control" id="email" formControlName="email" placeholder="Email address">
+          <div *ngIf="loginForm.get('email')?.invalid && (loginForm.get('email')?.dirty || loginForm.get('email')?.touched)" class="text-danger">
+            <small *ngIf="loginForm.get('email')?.errors?.['required']">Email is required</small>
+            <small *ngIf="loginForm.get('email')?.errors?.['email']">Please enter a valid email</small>
+          </div>
+        </div>
+        <div class="mb-3">
+          <label for="password" class="form-label">Password</label>
+          <input type="password" class="form-control" id="password" formControlName="password" placeholder="Password">
+          <div *ngIf="loginForm.get('password')?.invalid && (loginForm.get('password')?.dirty || loginForm.get('password')?.touched)" class="text-danger">
+            <small *ngIf="loginForm.get('password')?.errors?.['required']">Password is required</small>
+          </div>
+        </div>
+        <button type="submit" class="btn btn-primary w-100" [disabled]="loading">
+          <span *ngIf="loading" class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
+          Sign In
+        </button>
+        <div *ngIf="errorMessage" class="alert alert-danger mt-3">{{ errorMessage }}</div>
+      </form>
+    </div>
+  </div>
