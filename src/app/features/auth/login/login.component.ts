@@ -17,8 +17,7 @@ export class LoginComponent {
     password: ['', Validators.required]
   });
 
-  loading = false;
-  errorMessage = '';
+  error: string = '';
 
   constructor(
     private fb: FormBuilder,
@@ -26,25 +25,13 @@ export class LoginComponent {
     private router: Router
   ) {}
 
-  onSubmit(): void {
+  onSubmit() {
     if (this.loginForm.valid) {
-      this.loading = true;
-      this.errorMessage = '';
-      const { email, password } = this.loginForm.value;
-      this.authService.login(email!, password!).subscribe({
-        next: () => {
-          this.router.navigate(['/dashboard']);
-        },
-        error: (err) => {
-          this.errorMessage = 'Invalid email or password';
-          this.loading = false;
-        },
-        complete: () => {
-          this.loading = false;
-        }
-      });
-    } else {
-      this.loginForm.markAllAsTouched();
+      this.authService.login(this.loginForm.value.email!, this.loginForm.value.password!)
+        .subscribe({
+          next: () => this.router.navigate(['accounts']),
+          error: (err) => this.error = 'Invalid email or password'
+        });
     }
   }
 }

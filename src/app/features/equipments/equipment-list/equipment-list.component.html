@@ -1,0 +1,14 @@
+<div class="container mt-4">
+    <div class="row">
+      <div class="col-md-4" *ngFor="let equipment of equipments">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">{{ equipment.name }}</h5>
+            <p class="card-text">Status: {{ equipment.status }}</p>
+            <p class="card-text">User ID: {{ equipment.userId }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  

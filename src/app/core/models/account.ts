@@ -1,7 +1,10 @@
+import { Role } from "../enums/role";
+
 export interface Account {
-    id?: number;
-    name: string;
-    email: string;
-    role: 'ADMIN' | 'USER' | 'TECHNICIAN';
-    password?: string;
-  }
+  id?: number;
+  name: string;
+  email: string;
+  role: Role;
+  password?: string;
+}
+

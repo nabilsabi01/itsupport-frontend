@@ -1,0 +1,13 @@
+
+.card {
+    margin-bottom: 20px;
+  }
+  
+  .card-title {
+    font-weight: bold;
+  }
+  
+  .card-text {
+    color: #6c757d;
+  }
+  

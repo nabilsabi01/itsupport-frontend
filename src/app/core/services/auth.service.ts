@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Router } from '@angular/router';
-import { environment } from '../../../environments/environment.development';
+import { AuthResponseDTO } from '../models/AuthResponseDTO';
 
 @Injectable({
   providedIn: 'root'
@@ -18,12 +18,23 @@ export class AuthService {
     return !!this.currentUserSubject.value;
   }
 
+ hasRole(role: string): boolean {
+  const currentUser = this.currentUserSubject.value;
+
+  if (currentUser && currentUser.roles) {
+    return currentUser.roles.some((r: any) => r.authority === role);
+  }
+  return false;
+}
+
+
   login(email: string, password: string): Observable<any> {
-    return this.http.post<any>(`${environment.apiUrl}/api/v1/auth/authenticate`, { email, password })
+    return this.http.post<AuthResponseDTO>(`http://localhost:8080/api/v1/auth/authenticate`, { email, password })
       .pipe(map(response => {
-        localStorage.setItem('currentUser', JSON.stringify(response.user));
-        localStorage.setItem('accessToken', response.accessToken);
-        this.currentUserSubject.next(response.user);
+        localStorage.setItem('accessToken', response.token);
+        const user = this.parseJwt(response.token);
+        localStorage.setItem('currentUser', JSON.stringify(user));
+        this.currentUserSubject.next(user);
         return response;
       }));
   }
@@ -33,5 +44,15 @@ export class AuthService {
     localStorage.removeItem('accessToken');
     this.currentUserSubject.next(null);
     this.router.navigate(['/login']);
+  }
+
+  private parseJwt(token: string) {
+    const base64Url = token.split('.')[1];
+    const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+    const jsonPayload = decodeURIComponent(atob(base64).split('').map(function(c) {
+        return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+    }).join(''));
+
+    return JSON.parse(jsonPayload);
   }
 }

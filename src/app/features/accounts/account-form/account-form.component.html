@@ -1,1 +1,87 @@
-<p>account-form works!</p>
+<div class="account-form-container">
+  <p-toast></p-toast>
+
+  <h2>{{ isEditMode ? "Edit Account" : "Create Account" }}</h2>
+
+  <form [formGroup]="accountForm" (ngSubmit)="onSubmit()" class="p-fluid">
+    <div class="field">
+      <label for="name">Name</label>
+      <input type="text" pInputText id="name" formControlName="name" />
+      <small
+        class="p-error"
+        *ngIf="
+          accountForm.get('name')?.invalid && accountForm.get('name')?.touched
+        "
+      >
+        Name is required and should be at least 2 characters long.
+      </small>
+    </div>
+
+    <div class="field">
+      <label for="email">Email</label>
+      <input type="email" pInputText id="email" formControlName="email" />
+      <small
+        class="p-error"
+        *ngIf="
+          accountForm.get('email')?.invalid && accountForm.get('email')?.touched
+        "
+      >
+        Please enter a valid email address.
+      </small>
+    </div>
+
+    <div class="field">
+      <label for="role">Role</label>
+      <p-dropdown
+        [options]="roles"
+        formControlName="role"
+        placeholder="Select a role"
+      >
+        <ng-template let-role pTemplate="item">
+          <span>{{ role.label }}</span>
+        </ng-template>
+      </p-dropdown>
+      <small
+        class="p-error"
+        *ngIf="
+          accountForm.get('role')?.invalid && accountForm.get('role')?.touched
+        "
+      >
+        Please select a role.
+      </small>
+    </div>
+
+    <div class="field" *ngIf="!isEditMode">
+      <label for="password">Password</label>
+      <p-password
+        id="password"
+        formControlName="password"
+        [toggleMask]="true"
+        [feedback]="false"
+      ></p-password>
+      <small
+        class="p-error"
+        *ngIf="
+          accountForm.get('password')?.invalid &&
+          accountForm.get('password')?.touched
+        "
+      >
+        Password is required and should be at least 6 characters long.
+      </small>
+    </div>
+
+    <div class="button-container">
+      <p-button
+        type="submit"
+        label="Save"
+        [disabled]="accountForm.invalid"
+      ></p-button>
+      <p-button
+        type="button"
+        label="Cancel"
+        (onClick)="cancel()"
+        styleClass="p-button-secondary"
+      ></p-button>
+    </div>
+  </form>
+</div>
