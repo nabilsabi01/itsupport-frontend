@@ -9,12 +9,12 @@ import { AuthService } from '../../../core/services/auth.service';
   standalone: true,
   imports: [CommonModule, ReactiveFormsModule],
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css']
+  styleUrls: ['./login.component.css'],
 })
 export class LoginComponent {
   loginForm = this.fb.group({
     email: ['', [Validators.required, Validators.email]],
-    password: ['', Validators.required]
+    password: ['', Validators.required],
   });
 
   error: string = '';
@@ -27,10 +27,11 @@ export class LoginComponent {
 
   onSubmit() {
     if (this.loginForm.valid) {
-      this.authService.login(this.loginForm.value.email!, this.loginForm.value.password!)
+      this.authService
+        .login(this.loginForm.value.email!, this.loginForm.value.password!)
         .subscribe({
           next: () => this.router.navigate(['accounts']),
-          error: (err) => this.error = 'Invalid email or password'
+          error: (err) => (this.error = 'Invalid email or password'),
         });
     }
   }

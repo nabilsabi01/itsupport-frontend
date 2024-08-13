@@ -1,8 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import {
+  ReactiveFormsModule,
+  FormBuilder,
+  FormGroup,
+  Validators,
+} from '@angular/forms';
 import { RouterModule, ActivatedRoute, Router } from '@angular/router';
-import { Account} from '../../../core/models/account';
+import { Account } from '../../../core/models/account';
 import { AccountService } from '../../../core/services/account.service';
 import { InputTextModule } from 'primeng/inputtext';
 import { DropdownModule } from 'primeng/dropdown';
@@ -23,11 +28,11 @@ import { Role } from '../../../core/enums/role';
     DropdownModule,
     ButtonModule,
     PasswordModule,
-    ToastModule
+    ToastModule,
   ],
   providers: [MessageService],
   templateUrl: './account-form.component.html',
-  styleUrls: ['./account-form.component.css']
+  styleUrls: ['./account-form.component.css'],
 })
 export class AccountFormComponent implements OnInit {
   accountForm: FormGroup;
@@ -45,14 +50,14 @@ export class AccountFormComponent implements OnInit {
       name: ['', [Validators.required, Validators.minLength(2)]],
       email: ['', [Validators.required, Validators.email]],
       role: [null, Validators.required],
-      password: ['', [Validators.required, Validators.minLength(6)]]
+      password: ['', [Validators.required, Validators.minLength(6)]],
     });
 
-    this.roles = Object.keys(Role).map(key => ({
+    this.roles = Object.keys(Role).map((key) => ({
       label: key,
-      value: Role[key as keyof typeof Role]
+      value: Role[key as keyof typeof Role],
     }));
-    }
+  }
 
   ngOnInit(): void {
     const id = this.route.snapshot.paramMap.get('id');
@@ -66,10 +71,10 @@ export class AccountFormComponent implements OnInit {
 
   loadAccount(id: number): void {
     this.accountService.getAccount(id).subscribe(
-      account => {
+      (account) => {
         this.accountForm.patchValue(account);
       },
-      error => this.showError('Failed to load account')
+      (error) => this.showError('Failed to load account')
     );
   }
 
@@ -78,21 +83,25 @@ export class AccountFormComponent implements OnInit {
       const accountData: Account = this.accountForm.value;
       console.log(accountData);
       const operation = this.isEditMode
-        ? this.accountService.updateAccount(+this.route.snapshot.paramMap.get('id')!, accountData)
+        ? this.accountService.updateAccount(
+            +this.route.snapshot.paramMap.get('id')!,
+            accountData
+          )
         : this.accountService.createAccount(accountData);
-  
+
       operation.subscribe({
         next: () => {
-          this.showSuccess(this.isEditMode ? 'Account updated' : 'Account created');
+          this.showSuccess(
+            this.isEditMode ? 'Account updated' : 'Account created'
+          );
           this.navigateToAccounts();
         },
-        error: () => this.showError('Failed to save account')
+        error: () => this.showError('Failed to save account'),
       });
     } else {
       this.accountForm.markAllAsTouched();
     }
   }
-  
 
   navigateToAccounts(): void {
     this.router.navigate(['/accounts']);
@@ -103,10 +112,18 @@ export class AccountFormComponent implements OnInit {
   }
 
   private showSuccess(message: string): void {
-    this.messageService.add({ severity: 'success', summary: 'Success', detail: message });
+    this.messageService.add({
+      severity: 'success',
+      summary: 'Success',
+      detail: message,
+    });
   }
 
   private showError(message: string): void {
-    this.messageService.add({ severity: 'error', summary: 'Error', detail: message });
+    this.messageService.add({
+      severity: 'error',
+      summary: 'Error',
+      detail: message,
+    });
   }
 }

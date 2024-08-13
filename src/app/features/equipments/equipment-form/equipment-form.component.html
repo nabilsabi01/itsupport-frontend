@@ -1,1 +1,61 @@
-<p>equipment-form works!</p>
+<div class="equipment-form-container">
+  <div class="form-header">
+    <h2>{{isEditMode ? 'Edit' : 'Add New'}} Equipment</h2>
+    <p>{{isEditMode ? 'Update the details of existing equipment' : 'Enter the details for new equipment'}}</p>
+  </div>
+
+  <form [formGroup]="equipmentForm" (ngSubmit)="onSubmit()">
+    <div class="form-grid">
+      <div class="form-field">
+        <label for="name">Name</label>
+        <span class="p-input-icon-right">
+          <i class="pi pi-tag"></i>
+          <input id="name" type="text" pInputText formControlName="name" placeholder="Enter equipment name">
+        </span>
+        <small class="p-error" *ngIf="equipmentForm.get('name')?.invalid && equipmentForm.get('name')?.touched">
+          Name is required (min 2 characters)
+        </small>
+      </div>
+
+      <div class="form-field">
+        <label for="status">Status</label>
+        <p-dropdown id="status" [options]="statuses" formControlName="status" placeholder="Select a status" 
+                    optionLabel="label" optionValue="value" [showClear]="true">
+          <ng-template pTemplate="selectedItem">
+            <div class="status-item" *ngIf="equipmentForm.get('status')?.value">
+              <span class="status-badge" [ngClass]="equipmentForm.get('status')?.value"></span>
+              {{getStatusLabel(equipmentForm.get('status')?.value)}}
+            </div>
+          </ng-template>
+          <ng-template let-status pTemplate="item">
+            <div class="status-item">
+              <span class="status-badge" [ngClass]="status.value"></span>
+              {{status.label}}
+            </div>
+          </ng-template>
+        </p-dropdown>
+        <small class="p-error" *ngIf="equipmentForm.get('status')?.invalid && equipmentForm.get('status')?.touched">
+          Status is required
+        </small>
+      </div>
+
+      <div class="form-field">
+        <label for="userId">User ID</label>
+        <span class="p-input-icon-right">
+          <i class="pi pi-user"></i>
+          <p-inputNumber id="userId" formControlName="userId" [showButtons]="false" [min]="1" placeholder="Enter user ID"></p-inputNumber>
+        </span>
+        <small class="p-error" *ngIf="equipmentForm.get('userId')?.invalid && equipmentForm.get('userId')?.touched">
+          User ID is required and must be a positive number
+        </small>
+      </div>
+    </div>
+
+    <div class="form-actions">
+      <p-button type="button" label="Cancel" icon="pi pi-times" styleClass="p-button-secondary p-button-outlined" (onClick)="cancel()"></p-button>
+      <p-button type="submit" label="Save" icon="pi pi-check" [disabled]="equipmentForm.invalid"></p-button>
+    </div>
+  </form>
+</div>
+
+<p-toast></p-toast>

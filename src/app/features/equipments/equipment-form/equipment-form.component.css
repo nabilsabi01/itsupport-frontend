@@ -1,0 +1,158 @@
+:host {
+  --accent-color: #4154f1;
+  --heading-color: #012970;
+  --default-color: #444444;
+  --background-color: #ffffff;
+  --surface-color: #ffffff;
+  --contrast-color: #ffffff;
+  --error-color: #ef4444;
+  --success-color: #10b981;
+  --warning-color: #f59e0b;
+  --info-color: #3b82f6;
+}
+
+.equipment-form-container {
+  max-width: 800px;
+  margin: 2rem auto;
+  padding: 2rem;
+  background-color: var(--surface-color);
+  border-radius: 15px;
+  box-shadow: 0 0 30px rgba(1, 41, 112, 0.1);
+}
+
+.form-header {
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+.form-header h2 {
+  color: var(--heading-color);
+  font-size: 2.25rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+
+.form-header p {
+  color: color-mix(in srgb, var(--default-color), transparent 30%);
+  font-size: 1.1rem;
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.5rem;
+}
+
+.form-field {
+  margin-bottom: 1.5rem;
+}
+
+.form-field label {
+  display: block;
+  margin-bottom: 0.5rem;
+  color: var(--heading-color);
+  font-weight: 600;
+  font-size: 1rem;
+}
+
+:host ::ng-deep {
+  .p-inputtext,
+  .p-dropdown,
+  .p-inputnumber-input {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    border-radius: 8px;
+    border: 1px solid #ced4da;
+    transition: border-color 0.3s, box-shadow 0.3s;
+  }
+
+  .p-inputtext:enabled:focus,
+  .p-dropdown:not(.p-disabled).p-focus,
+  .p-inputnumber-input:enabled:focus {
+    box-shadow: 0 0 0 2px #bfdbfe;
+    border-color: var(--accent-color);
+  }
+
+  .p-dropdown-panel .p-dropdown-items .p-dropdown-item.p-highlight {
+    background-color: color-mix(in srgb, var(--accent-color), transparent 90%);
+    color: var(--accent-color);
+  }
+
+  .p-button {
+    font-weight: 600;
+    padding: 0.75rem 1.5rem;
+    transition: all 0.3s;
+    border-radius: 8px;
+  }
+
+  .p-button:enabled:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(65, 84, 241, 0.2);
+  }
+
+  .p-button.p-button-secondary.p-button-outlined {
+    color: #6c757d;
+    border-color: #6c757d;
+  }
+
+  .p-button.p-button-secondary.p-button-outlined:enabled:hover {
+    background-color: #6c757d;
+    color: #ffffff;
+    border-color: #6c757d;
+  }
+
+  .p-inputnumber-buttons-stacked .p-button.p-inputnumber-button-up {
+    border-top-right-radius: 8px;
+  }
+
+  .p-inputnumber-buttons-stacked .p-button.p-inputnumber-button-down {
+    border-bottom-right-radius: 8px;
+  }
+}
+
+.form-actions {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 2rem;
+  gap: 1rem;
+}
+
+.p-error {
+  color: var(--error-color);
+  font-size: 0.875rem;
+  margin-top: 0.25rem;
+  display: block;
+}
+
+.status-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.status-badge {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.status-badge.ACTIVE { background-color: var(--success-color); }
+.status-badge.INACTIVE { background-color: var(--warning-color); }
+.status-badge.UNDER_MAINTENANCE { background-color: var(--info-color); }
+.status-badge.RETIRED { background-color: var(--error-color); }
+
+@media screen and (max-width: 768px) {
+  .equipment-form-container {
+    padding: 1.5rem;
+    margin: 1rem;
+  }
+
+  .form-actions {
+    flex-direction: column-reverse;
+  }
+
+  :host ::ng-deep .p-button {
+    width: 100%;
+  }
+}

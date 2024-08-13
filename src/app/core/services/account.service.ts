@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { Account } from '../../core/models/account';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class AccountService {
   private apiUrl = `http://localhost:8080/api/accounts`;
@@ -20,7 +20,10 @@ export class AccountService {
   }
 
   createAccount(account: Account): Observable<Account> {
-    return this.http.post<Account>(`http://localhost:8080/api/v1/auth/register`, account);
+    return this.http.post<Account>(
+      `http://localhost:8080/api/v1/auth/register`,
+      account
+    );
   }
 
   updateAccount(id: number, account: Account): Observable<Account> {

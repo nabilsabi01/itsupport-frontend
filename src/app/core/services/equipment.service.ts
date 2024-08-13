@@ -7,13 +7,16 @@ import { Equipment } from '../models/equipment';
   providedIn: 'root'
 })
 export class EquipmentService {
+  private apiUrl = 'http://localhost:8080/api/equipments';
 
-  private apiUrl = '/api/equipments';
+  constructor(private http: HttpClient) { }
 
-  constructor(private http: HttpClient) {}
-
-  getEquipments(): Observable<Equipment[]> {
+  getAllEquipments(): Observable<Equipment[]> {
     return this.http.get<Equipment[]>(this.apiUrl);
+  }
+
+  getEquipment(id: number): Observable<Equipment> {
+    return this.http.get<Equipment>(`${this.apiUrl}/${id}`);
   }
 
   createEquipment(equipment: Equipment): Observable<Equipment> {
@@ -26,5 +29,9 @@ export class EquipmentService {
 
   deleteEquipment(id: number): Observable<void> {
     return this.http.delete<void>(`${this.apiUrl}/${id}`);
+  }
+
+  getEquipmentByUserId(userId: number): Observable<Equipment[]> {
+    return this.http.get<Equipment[]>(`${this.apiUrl}/user/${userId}`);
   }
 }

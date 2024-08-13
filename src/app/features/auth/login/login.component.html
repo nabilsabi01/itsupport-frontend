@@ -8,14 +8,34 @@
             <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
               <div class="mb-3">
                 <label for="email" class="form-label">Email</label>
-                <input type="email" class="form-control" id="email" formControlName="email" placeholder="Enter your email">
+                <input
+                  type="email"
+                  class="form-control"
+                  id="email"
+                  formControlName="email"
+                  placeholder="Enter your email"
+                />
               </div>
               <div class="mb-3">
                 <label for="password" class="form-label">Password</label>
-                <input type="password" class="form-control" id="password" formControlName="password" placeholder="Enter your password">
+                <input
+                  type="password"
+                  class="form-control"
+                  id="password"
+                  formControlName="password"
+                  placeholder="Enter your password"
+                />
               </div>
-              <button type="submit" class="btn btn-primary w-100" [disabled]="!loginForm.valid">Login</button>
-              <div *ngIf="error" class="alert alert-danger mt-3">{{ error }}</div>
+              <button
+                type="submit"
+                class="btn btn-primary w-100"
+                [disabled]="!loginForm.valid"
+              >
+                Login
+              </button>
+              <div *ngIf="error" class="alert alert-danger mt-3">
+                {{ error }}
+              </div>
             </form>
           </div>
         </div>

@@ -17,10 +17,29 @@ export const routes: Routes = [
       {
         path: 'equipment',
         canActivate: [roleGuard(['ROLE_ADMIN'])],
-        loadComponent: () =>
-          import(
-            './features/equipments/equipment-list/equipment-list.component'
-          ).then((m) => m.EquipmentListComponent),
+        children: [
+          {
+            path: '',
+            loadComponent: () =>
+              import(
+                './features/equipments/equipment-list/equipment-list.component'
+              ).then((m) => m.EquipmentListComponent),
+          },
+          {
+            path: 'new',
+            loadComponent: () =>
+              import(
+                './features/equipments/equipment-form/equipment-form.component'
+              ).then((m) => m.EquipmentFormComponent),
+          },
+          {
+            path: 'edit/:id',
+            loadComponent: () =>
+              import(
+                './features/equipments/equipment-form/equipment-form.component'
+              ).then((m) => m.EquipmentFormComponent),
+          },
+        ],
       },
       {
         path: 'dashboard',
