@@ -1,27 +1,50 @@
-# ItsupportFrontend
+# 🖥️ Système de Gestion des Ressources Informatiques
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 17.3.8.
+**Version**: 1.0.0
 
-## Development server
+> Un système complet pour gérer les équipements IT, les pannes et le support technique.
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+## 📖 Table des Matières
 
-## Code scaffolding
+- [À Propos du Projet](#-à-propos-du-projet)
+- [Fonctionnalités Clés](#-fonctionnalités-clés)
+- [Technologies Utilisées](#-technologies-utilisées)
+- [Démarrage Rapide](#-démarrage-rapide)
+  - [Prérequis](#prérequis)
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+## 🚀 À Propos du Projet
 
-## Build
+Le Système de Gestion des Ressources Informatiques est une solution complète développée par ITSolutions pour optimiser la gestion des équipements IT, le suivi des pannes et le traitement des tickets de support au sein des organisations.
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+## ✨ Fonctionnalités Clés
 
-## Running unit tests
+- 📊 **Gestion des Équipements** : Ajout, modification, suppression et consultation
+- 🔧 **Suivi des Pannes** : Historique détaillé pour chaque équipement
+- 🎫 **Tickets de Support** : Création, attribution et suivi des tickets
+- 📈 **Rapports et Statistiques** : Analyse des performances et de l'état des équipements
+- 🔔 **Notifications** : Alertes pour les tickets en attente
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+## 🛠 Technologies Utilisées
 
-## Running end-to-end tests
+- **Backend** : 
+  - Spring Boot 3.3.2
+  - Spring Data JPA
+  - Spring Security 6.3.1
+- **Frontend** : 
+  - Angular 17.3.8
+- **Base de données** : 
+  - MySQL 8.3.0
+- **Tests** : 
+  - JUnit 5
+- **Conteneurisation** : 
+  - Docker
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+## 🚦 Démarrage Rapide
 
-## Further help
+### Prérequis
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+- Java JDK 17+
+- Node.js 18.x+
+- Angular CLI 17.3.8
+- Docker et Docker Compose
+- MySQL 8.3.0
