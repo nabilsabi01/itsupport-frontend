@@ -5,17 +5,17 @@ import { LayoutComponent } from './features/layout/layout.component';
 
 export const routes: Routes = [
   {
-    path: '',
+    path: 'login',
     loadComponent: () => import('./features/auth/login/login.component').then(m => m.LoginComponent)
   },
   {
     path: '',
     component: LayoutComponent,
-    // canActivate: [authGuard],
+    canActivate: [authGuard],
     children: [
       {
         path: 'equipments',
-        // canActivate: [roleGuard(['ROLE_ADMIN'])],
+        canActivate: [roleGuard(['ROLE_ADMIN'])],
         children: [
           {
             path: '',
@@ -50,6 +50,7 @@ export const routes: Routes = [
       },
       {
         path: 'failures',
+        canActivate: [roleGuard(['ROLE_ADMIN'])],
         children: [
           {
             path: '',
@@ -67,6 +68,7 @@ export const routes: Routes = [
       },
       {
         path: 'accounts',
+        canActivate: [roleGuard(['ROLE_ADMIN'])],
         children: [
           {
             path: '',
@@ -82,8 +84,8 @@ export const routes: Routes = [
           }
         ]
       },
-      { path: '', redirectTo: 'dashboard', pathMatch: 'full' }
+      { path: '', redirectTo: 'accounts', pathMatch: 'full' }
     ]
   },
-  { path: '**', redirectTo: 'dashboard' }
+  { path: '**', redirectTo: 'login' }
 ];

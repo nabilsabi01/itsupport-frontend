@@ -34,7 +34,7 @@ export class AccountService {
 
   createAccount(account: Account): Observable<Account> {
     return this.http.post<Account>(
-      `http://localhost:8080/api/v1/auth/register`,
+      `http://localhost:8080/api/auth/register`,
       account
     );
   }

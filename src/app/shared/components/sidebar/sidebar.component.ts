@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { MenuItem } from 'primeng/api';
 import { PanelMenuModule } from 'primeng/panelmenu';
 import { CommonModule } from '@angular/common';
+import { AuthService } from '../../../core/services/auth.service';
 
 @Component({
   selector: 'app-sidebar',
@@ -13,16 +14,15 @@ import { CommonModule } from '@angular/common';
 })
 export class SidebarComponent implements OnInit {
   items: MenuItem[] = [];
-  userRole: string = 'ADMIN';
 
-  constructor(private router: Router) {}
+  constructor(private router: Router, private authService: AuthService) {}
 
   ngOnInit() {
     this.initializeMenu();
   }
 
   initializeMenu() {
-    if (this.userRole === 'ADMIN') {
+    if (this.authService.hasRole('ROLE_ADMIN')){
       this.items = [
         {
           label: 'Manage Accounts',
@@ -35,17 +35,12 @@ export class SidebarComponent implements OnInit {
           command: () => this.router.navigate(['/equipments'])
         },
         {
-          label: 'Manage Faiture',
+          label: 'Manage Failure',
           icon: 'pi pi-exclamation-triangle',
           command: () => this.router.navigate(['/failures'])
-        },
-        {
-          label: 'Log out',
-          icon: 'pi pi-sign-out',
-          command: () => this.router.navigate(['/logout'])
         }
       ];
-    } else if (this.userRole === 'USER') {
+    } else if (this.authService.hasRole('ROLE_ADMIN')) {
       this.items = [
         {
           label: 'My Tickets',
@@ -55,10 +50,10 @@ export class SidebarComponent implements OnInit {
         {
           label: 'Log out',
           icon: 'pi pi-sign-out',
-          command: () => this.router.navigate(['/logout'])
+          command: () => this.authService.logout()
         }
       ];
-    } else if (this.userRole === 'TECHNICIAN') {
+    } else if (this.authService.hasRole('ROLE_ADMIN')) {
       this.items = [
         {
           label: 'Tasks',
@@ -68,7 +63,7 @@ export class SidebarComponent implements OnInit {
         {
           label: 'Log out',
           icon: 'pi pi-sign-out',
-          command: () => this.router.navigate(['/logout'])
+          command: () => this.authService.logout()
         }
       ];
     }
