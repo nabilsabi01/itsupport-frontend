@@ -109,7 +109,7 @@ export class EquipmentFormComponent implements OnInit {
   }
 
   cancel(): void {
-    this.router.navigate(['/equipment']);
+    this.router.navigate(['/equipments']);
   }
 
   getStatusLabel(status: EquipmentStatus): string {

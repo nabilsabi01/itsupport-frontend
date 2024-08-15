@@ -16,7 +16,20 @@ export class AccountService {
   }
 
   getAccount(id: number): Observable<Account> {
-    return this.http.get<Account>(`${this.apiUrl}/${id}`);
+    return new Observable<Account>((observer) => {
+      this.getAccounts().subscribe({
+        next: (accounts) => {
+          const account = accounts.find(a => a.id === id);
+          if (account) {
+            observer.next(account);
+            observer.complete();
+          } else {
+            observer.error('Account not found');
+          }
+        },
+        error: (err) => observer.error(err)
+      });
+    });
   }
 
   createAccount(account: Account): Observable<Account> {

@@ -1,0 +1,27 @@
+<div class="failure-form-container">
+    <h2>{{ isEditMode ? 'Edit Failure' : 'Create Failure' }}</h2>
+    <form [formGroup]="failureForm" (ngSubmit)="onSubmit()">
+      <div class="p-field">
+        <label for="description">Description</label>
+        <input id="description" type="text" pInputText formControlName="description" />
+        <small class="p-error" *ngIf="failureForm.get('description')?.invalid && failureForm.get('description')?.touched">
+          Description is required
+        </small>
+      </div>
+      
+      <div class="p-field">
+        <label for="type">Type</label>
+        <p-dropdown id="type" [options]="failureTypes" formControlName="type" optionLabel="label" optionValue="value"></p-dropdown>
+        <small class="p-error" *ngIf="failureForm.get('type')?.invalid && failureForm.get('type')?.touched">
+          Type is required
+        </small>
+      </div>
+      
+      <div class="p-field button-container">
+        <p-button type="button" label="Cancel" (onClick)="cancel()" styleClass="p-button-secondary"></p-button>
+        <p-button type="submit" label="Save" [disabled]="failureForm.invalid"></p-button>
+      </div>
+    </form>
+  </div>
+  
+  <p-toast></p-toast>

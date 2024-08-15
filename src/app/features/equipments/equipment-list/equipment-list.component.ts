@@ -54,11 +54,11 @@ export class EquipmentListComponent implements OnInit {
   }
 
   navigateToCreate(): void {
-    this.router.navigate(['/equipment/new']);
+    this.router.navigate(['/equipments/new']);
   }
 
   editEquipment(equipment: Equipment): void {
-    this.router.navigate(['/equipment/edit', equipment.id]);
+    this.router.navigate(['/equipments/edit', equipment.id]);
   }
 
   deleteEquipment(equipment: Equipment): void {

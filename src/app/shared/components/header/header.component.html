@@ -1,1 +1,8 @@
-<p>header works!</p>
+<header class="header">
+    <div class="logo">IT Support</div>
+    <div class="user-menu">
+      <p-avatar icon="pi pi-user" shape="circle" [style]="{'background-color':'#2196F3', 'color': '#ffffff'}"></p-avatar>
+      <p-menu #menu [popup]="true" [model]="items"></p-menu>
+      <p-button (click)="menu.toggle($event)" icon="pi pi-angle-down" styleClass="p-button-text"></p-button>
+    </div>
+  </header>

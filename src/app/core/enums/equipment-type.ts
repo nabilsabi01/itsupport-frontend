@@ -1,8 +1,0 @@
-export enum EquipmentType {
-    COMPUTER = 'COMPUTER',
-    PRINTER = 'PRINTER',
-    NETWORK_DEVICE = 'NETWORK_DEVICE',
-    SERVER = 'SERVER',
-    PERIPHERAL = 'PERIPHERAL',
-    OTHER = 'OTHER'
-  }
